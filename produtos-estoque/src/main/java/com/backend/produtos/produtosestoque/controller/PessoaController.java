@@ -2,6 +2,7 @@ package com.backend.produtos.produtosestoque.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.produtos.produtosestoque.model.Pessoa;
+import com.backend.produtos.produtosestoque.model.Produto;
 import com.backend.produtos.produtosestoque.repository.PessoaRepository;
+import com.backend.produtos.produtosestoque.repository.ProdutoRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
@@ -26,6 +29,9 @@ public class PessoaController {
 	
 	@Autowired
     private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	@GetMapping("/pessoas")
     public List<Pessoa> list() {
@@ -62,21 +68,22 @@ public class PessoaController {
 				   }).orElse(ResponseEntity.notFound().build());
 	   }
 	   
-	@GetMapping(value="/pessoas/login/email={email}&senha={senha}")
-	   public ResponseEntity login(@PathVariable("email") String pessoaEmail, @PathVariable("senha") String pessoaSenha){
-		 List<Pessoa> pessoas = pessoaRepository.findAll();
-		 if(pessoas.size() != 0) {
-			 for (Pessoa pessoaType : pessoas) {
-				 if(pessoaType.getEmail().equals(pessoaEmail) && pessoaType.getPassword().equals(pessoaSenha)) {
-					 return new  ResponseEntity<>("Acesso Liberado! Pode ir para a página Home", HttpStatus.OK);
-				 }else {
-					 return new  ResponseEntity<>("Acesso Não Liberado!", HttpStatus.FORBIDDEN);
-				 }
-			 }
-		  }else {
-			  return new  ResponseEntity<>("Crie alguma pessoa!", HttpStatus.BAD_REQUEST);
-		  }
-	      
+	@GetMapping(value="/pessoas/login/email={email}&password={password}")
+	   public ResponseEntity login(@PathVariable("email") String pessoaEmail, @PathVariable("password") String pessoaSenha){
+		List<Pessoa> pessoa = pessoaRepository.listByLoginCredential(pessoaEmail, pessoaSenha);
+		if(pessoa.size() == 0 ){
+			return new ResponseEntity<>("Acesso não liberado!", HttpStatus.BAD_REQUEST);
+		}else {
+			return new ResponseEntity<>(pessoa, HttpStatus.OK);
+		}
+	     
+	   }
+	
+	@GetMapping(value="/pessoas/alocar-produtos/idProduto={idProduto}&idPessoa={idPessoa}")
+	   public ResponseEntity login(@PathVariable("idProduto") Long idProduto, @PathVariable("idPessoa") Long idPessoa){
+		Optional<Produto> produtos = produtoRepository.findById(idPessoa);
+		
+		
 		return null;
 	   }
 	   

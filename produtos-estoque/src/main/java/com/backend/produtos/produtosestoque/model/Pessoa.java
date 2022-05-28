@@ -1,10 +1,16 @@
 package com.backend.produtos.produtosestoque.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 
 @Entity(name="PESSOA")
 public class Pessoa {
@@ -18,9 +24,21 @@ public class Pessoa {
 	private String email;
 	private String telefone;
 	private String password;
+	private boolean alocado;
+	
+	@OneToMany(targetEntity=Produto.class, fetch=FetchType.EAGER)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private List<Produto> listasProdutos;
 	
 	public Pessoa() {
 		super();
+	}
+	
+	public List<Produto> getListasProdutos() {
+		return listasProdutos;
+	}
+	public void setListasProdutos(Produto produto) {
+		this.listasProdutos.add(produto);
 	}
 	
 	public Long getId() {
