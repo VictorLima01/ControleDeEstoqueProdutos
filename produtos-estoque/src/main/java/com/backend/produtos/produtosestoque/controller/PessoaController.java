@@ -8,7 +8,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.produtos.produtosestoque.model.Pessoa;
 import com.backend.produtos.produtosestoque.repository.PessoaRepository;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
 @RequestMapping("/api")
@@ -29,21 +32,52 @@ public class PessoaController {
         return pessoaRepository.findAll();
     }
 	
-	@PostMapping("/pessoas")
-	   public ResponseEntity createNote(@Valid @RequestBody Pessoa pessoa) {
+	@PostMapping("/pessoas/cadastrar")
+	   public ResponseEntity createPessoa(@Valid @RequestBody Pessoa pessoa) {
 		   List<Pessoa> pessoas = pessoaRepository.findAll();
 		   if(pessoas.size() == 0) {
 			   pessoaRepository.save(pessoa);
 		   }else {
 			   for (Pessoa pessoaType : pessoas) {
 				    if(pessoaType.getEmail().equals(pessoa.getEmail())) {
-				    	System.out.println("Email duplicado, digite um email válido! ");
-				    	return new ResponseEntity<>(pessoa, HttpStatus.BAD_REQUEST);
+				    	System.out.println("Email duplicado, digite um email válido!");
+				    	return new ResponseEntity<>("Email duplicado, digite um email válido!", HttpStatus.BAD_REQUEST);
+				    }else if(pessoaType.getPassword().equals(pessoa.getPassword())){
+				    	System.out.println("Senha duplicada, digite uma senha válida!");
+				    	return new ResponseEntity<>("Senha duplicada, digite uma senha válida!", HttpStatus.BAD_REQUEST);
 				    }else {
 				    	pessoaRepository.save(pessoa);
 				    }
 				}
 		   }
-		   return new ResponseEntity<>(pessoa, HttpStatus.OK);
+		   return new ResponseEntity<>(pessoa, HttpStatus.CREATED);
 	   }
+	
+	 @DeleteMapping(path= {"/pessoas/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) {
+		   return pessoaRepository.findById(id)
+				   .map(record -> {
+					   pessoaRepository.deleteById(id);
+					  return ResponseEntity.ok().build();
+				   }).orElse(ResponseEntity.notFound().build());
+	   }
+	   
+	@GetMapping(value="/pessoas/login/email={email}&senha={senha}")
+	   public ResponseEntity login(@PathVariable("email") String pessoaEmail, @PathVariable("senha") String pessoaSenha){
+		 List<Pessoa> pessoas = pessoaRepository.findAll();
+		 if(pessoas.size() != 0) {
+			 for (Pessoa pessoaType : pessoas) {
+				 if(pessoaType.getEmail().equals(pessoaEmail) && pessoaType.getPassword().equals(pessoaSenha)) {
+					 return new  ResponseEntity<>("Acesso Liberado! Pode ir para a página Home", HttpStatus.OK);
+				 }else {
+					 return new  ResponseEntity<>("Acesso Não Liberado!", HttpStatus.FORBIDDEN);
+				 }
+			 }
+		  }else {
+			  return new  ResponseEntity<>("Crie alguma pessoa!", HttpStatus.BAD_REQUEST);
+		  }
+	      
+		return null;
+	   }
+	   
 }

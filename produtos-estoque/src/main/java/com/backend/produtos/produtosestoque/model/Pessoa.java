@@ -17,6 +17,7 @@ public class Pessoa {
 	private String nome;
 	private String email;
 	private String telefone;
+	private String password;
 	
 	public Pessoa() {
 		super();
@@ -46,7 +47,13 @@ public class Pessoa {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }
