@@ -81,10 +81,16 @@ public class PessoaController {
 	
 	@GetMapping(value="/pessoas/alocar-produtos/idProduto={idProduto}&idPessoa={idPessoa}")
 	   public ResponseEntity login(@PathVariable("idProduto") Long idProduto, @PathVariable("idPessoa") Long idPessoa){
-		Optional<Produto> produtos = produtoRepository.findById(idPessoa);
-		
-		
-		return null;
+		return pessoaRepository.findById(idPessoa)
+	              .map(record -> {
+	            		  produtoRepository.findById(idProduto).map(produto -> {
+	            			 produto.setAlocado(true);
+	 	            		 record.setListasProdutos(produto);
+	 	            		 return ResponseEntity.ok().build();
+	 	            	  });	 	            	  
+	            		  pessoaRepository.save(record);
+	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
+	              }).orElse(ResponseEntity.notFound().build());
 	   }
 	   
 }

@@ -1,5 +1,9 @@
 package com.backend.produtos.produtosestoque.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,11 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.produtos.produtosestoque.model.Pessoa;
 import com.backend.produtos.produtosestoque.model.Produto;
 import com.backend.produtos.produtosestoque.repository.ProdutoRepository;
-
+import java.sql.*;
 @RestController
 @RequestMapping("/api")
 public class ProdutoController {
-	
+	private PreparedStatement statement;
+    private Connection con;
 	@Autowired
     private ProdutoRepository produtoRepository;
 	
@@ -50,12 +55,10 @@ public class ProdutoController {
 	   }
 	
 	@DeleteMapping(path= {"/produtos/{id}"})
-	   public ResponseEntity delete(@PathVariable long id) {
-		   return produtoRepository.findById(id)
-				   .map(record -> {
-					   produtoRepository.deleteById(id);
-					  return ResponseEntity.ok().build();
-				   }).orElse(ResponseEntity.notFound().build());
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		produtoRepository.deleteCopyByTradeId(id);
+		produtoRepository.deleteById(id);
+		return null;
 	   }
 	
 	@PutMapping(value="/produtos/{id}")
