@@ -1,0 +1,67 @@
+package com.backend.produtos.produtosestoque.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.backend.produtos.produtosestoque.model.Enfermeiro;
+import com.backend.produtos.produtosestoque.repository.EnfermeiroRepository;
+import com.backend.produtos.produtosestoque.repository.PratileiraRepository;
+
+@RestController
+@RequestMapping("/api")
+public class EnfermeiroController {
+	
+	@Autowired
+    private EnfermeiroRepository enfermeiroRepository;
+	
+	@Autowired
+    private PratileiraRepository pratileiraRepository;
+	
+	@GetMapping("/enfermeiros")
+    public List<Enfermeiro> list() {
+        return enfermeiroRepository.findAll();
+    }
+	
+	@PostMapping("/enfermeiros/cadastrar")
+	   public ResponseEntity createEnfermeiros(@Valid @RequestBody Enfermeiro enfermeiro) {
+		   List<Enfermeiro> enfermeiros = enfermeiroRepository.findAll();
+		   if(enfermeiros.size() == 0) {
+			   enfermeiroRepository.save(enfermeiro);
+		   }else {
+			   for (Enfermeiro enfermeiroType : enfermeiros) {
+				    if(enfermeiroType.getEmail().equals(enfermeiro.getEmail())) {
+				    	System.out.println("Email duplicado, digite um Email válido!");
+				    	return new ResponseEntity<>("Email duplicado, digite um Email válido!", HttpStatus.BAD_REQUEST);
+				    }else {
+				    	enfermeiroRepository.save(enfermeiro);
+				    }
+				}
+		   }
+		   return new ResponseEntity<>(enfermeiro, HttpStatus.CREATED);
+	   }
+	
+	@GetMapping(value="/enfermeiros/alocar-pratileira/id_enfermeiro={id_enfermeiro}&id_pratileira={id_pratileira}")
+	   public ResponseEntity alocarPratileiraParaEnfermeiro(@PathVariable("id_enfermeiro") Long id_enfermeiro, @PathVariable("id_pratileira") Long id_pratileira){
+		return enfermeiroRepository.findById(id_enfermeiro)
+	              .map(record -> {
+	            	  pratileiraRepository.findById(id_pratileira).map(pratileira -> {
+	 	            		 record.setPratileiraSobResponsabilidade(pratileira);
+	 	            		 return ResponseEntity.ok().build();
+	 	            	  });	 	            	  
+	            	  enfermeiroRepository.save(record);
+	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
+	              }).orElse(ResponseEntity.notFound().build());
+	   }
+
+}

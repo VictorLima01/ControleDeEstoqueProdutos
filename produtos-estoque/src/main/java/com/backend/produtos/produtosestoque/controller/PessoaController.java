@@ -21,7 +21,6 @@ import com.backend.produtos.produtosestoque.model.Pessoa;
 import com.backend.produtos.produtosestoque.model.Produto;
 import com.backend.produtos.produtosestoque.repository.PessoaRepository;
 import com.backend.produtos.produtosestoque.repository.ProdutoRepository;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
 @RequestMapping("/api")
