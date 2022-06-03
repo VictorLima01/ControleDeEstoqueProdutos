@@ -11,7 +11,7 @@ import com.backend.produtos.produtosestoque.model.Medicamento;
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Long>{
     @Modifying
 	    @Transactional
-	    @Query(value = "DELETE FROM medicamento_listas_pratileiras where id_medicamento = ?1; ", nativeQuery = true)
+	    @Query(value = "DELETE FROM medicamento_listas_pratileiras where medicamento_id_medicamento = ?1 ; ", nativeQuery = true)
 	    void deleteCopyByTradeId(Long id);
 	  
 }
