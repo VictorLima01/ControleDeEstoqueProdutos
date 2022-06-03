@@ -73,4 +73,24 @@ public class EnfermeiroController {
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 
+	   @DeleteMapping(path= {"/enfermeiro/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		enfermeiroRepository.deleteCopyByTradeId(id);
+		enfermeiroRepository.deleteById(id);
+		return null;
+	   }
+	
+	@PutMapping(value="/enfermeiro/{id}")
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Enfermeiro enfermeiros) {
+		   return enfermeiroRepository.findById(id)
+				   .map(record -> {
+					   record.setNome(enfermeiro.getNome());
+					   record.setEmail(enfermeiro.getEmail());
+					   record.setTelefone(enfermeiro.getTelefone());
+					   record.setEndereco(enfermeiro.getEndereco());
+						 enfermeiroRepository.save(record);
+						 return new ResponseEntity<>(enfermeiros, HttpStatus.OK);
+					   }).orElse(ResponseEntity.notFound().build());	   	
+	   }
+
 }

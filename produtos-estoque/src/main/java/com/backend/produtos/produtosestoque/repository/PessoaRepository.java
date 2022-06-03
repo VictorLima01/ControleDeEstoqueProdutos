@@ -14,4 +14,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 	
 	@Query("select u from PESSOA u where u.email = ?1 and u.password = ?2")
 	List<Pessoa> listByLoginCredential(String email,String password);
+
 }

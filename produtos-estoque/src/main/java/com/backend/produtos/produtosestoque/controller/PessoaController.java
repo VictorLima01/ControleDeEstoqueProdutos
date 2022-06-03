@@ -91,5 +91,25 @@ public class PessoaController {
 	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
+
+	   @DeleteMapping(path= {"/pessoas/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		pessoaRepository.deleteCopyByTradeId(id);
+		pessoaRepository.deleteById(id);
+		return null;
+	   }
+	
+	@PutMapping(value="/pessoas/{id}")
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Pessoa pessoas) {
+		   return pessoaRepository.findById(id)
+				   .map(record -> {
+					   record.setNome(pessoa.getNome);
+					   record.setEmail(pessoa.getEmail);
+					   record.setTelefone(pessoa.getTelefone);
+					   record.setTelefone(pessoa.getTelefone);
+						 pessoaRepository.save(record);
+						 return new ResponseEntity<>(pessoas, HttpStatus.OK);
+					   }).orElse(ResponseEntity.notFound().build());	   	
+	   }
 	   
 }

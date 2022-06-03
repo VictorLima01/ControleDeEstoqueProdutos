@@ -67,4 +67,25 @@ public class MedicoController {
 	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
+
+	   @DeleteMapping(path= {"/medicos/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		medicoRepository.deleteCopyByTradeId(id);
+		medicoRepository.deleteById(id);
+		return null;
+	   }
+	
+	@PutMapping(value="/medicos/{id}")
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Medico medicos) {
+		   return medicoRepository.findById(id)
+				   .map(record -> {
+					   record.setNome(medico.getNome());
+					   record.setEmail(medico.getEmail());
+					   record.setTelefone(medico.getTelefone());
+					   record.setEndereco(medico.getEndereco());
+					   record.setEspecialidade(medico.getEspecialidade());
+						 medicoRepository.save(record);
+						 return new ResponseEntity<>(medicos, HttpStatus.OK);
+					   }).orElse(ResponseEntity.notFound().build());	   	
+	   }
 }
