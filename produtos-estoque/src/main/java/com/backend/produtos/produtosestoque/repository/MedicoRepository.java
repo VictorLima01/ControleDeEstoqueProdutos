@@ -9,10 +9,5 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>{
 	    @Transactional
 	    @Query(value = "DELETE FROM medico_listas_pacientes where id_medico = ?1; ", nativeQuery = true)
 	    void deleteCopyByTradeId(Long id);
-	  
-	  	@Modifying
-	    @Transactional
-	    @Query(value = "DELETE FROM medico_listas_pacientes where id_medico = ?1; ", nativeQuery = true)
-	    void deleteById(Long id);
 
 }

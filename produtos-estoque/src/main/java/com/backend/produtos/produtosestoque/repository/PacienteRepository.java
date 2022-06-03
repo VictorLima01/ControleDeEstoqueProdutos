@@ -10,9 +10,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long>{
 	    @Query(value = "DELETE FROM paciente_listas_medicamentos where id_paciente = ?1; ", nativeQuery = true)
 	    void deleteCopyByTradeId(Long id);
 	  
-	  	@Modifying
-	    @Transactional
-	    @Query(value = "DELETE FROM paciente_listas_medicamentos where id_paciente = ?1; ", nativeQuery = true)
-	    void deleteById(Long id);
-
 }
