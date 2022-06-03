@@ -56,6 +56,7 @@ public class SetorController {
 		return setorRepository.findById(id_setor)
 	              .map(record -> {
 	            	  enfermeiroRepository.findById(id_enfermeiro).map(enfermeiro -> {
+	            		  	 enfermeiro.setSetor(record.getNome());
 	 	            		 record.setListaEnfermeiro(enfermeiro);
 	 	            		 return ResponseEntity.ok().build();
 	 	            	  });	 	            	  

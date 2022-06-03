@@ -22,7 +22,16 @@ public class Enfermeiro {
 	private String email;
 	private String telefone;
 	private String endereco;
+	private String setor;
 	
+	public String getSetor() {
+		return setor;
+	}
+
+	public void setSetor(String setor) {
+		this.setor = setor;
+	}
+
 	@OneToMany(targetEntity=Pratileira.class, fetch=FetchType.EAGER)
     private List<Pratileira> pratileiraSobResponsabilidade;
 	

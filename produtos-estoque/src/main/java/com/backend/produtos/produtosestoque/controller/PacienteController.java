@@ -52,13 +52,18 @@ public class PacienteController {
 		   return new ResponseEntity<>(paciente, HttpStatus.CREATED);
 	   }
 	
-	@GetMapping(value="/pacientes/alocar-medicamentos/id_paciente={id_medico}&id_medicamento={id_medicamento}")
+	@GetMapping(value="/pacientes/alocar-medicamentos/id_paciente={id_paciente}&id_medicamento={id_medicamento}")
 	   public ResponseEntity alocarMedicamentosParaPacientes(@PathVariable("id_paciente") Long id_paciente, @PathVariable("id_medicamento") Long id_medicamento){
 		return pacienteRepository.findById(id_paciente)
 	              .map(record -> {
 	            	  medicamentoRepository.findById(id_medicamento).map(medicamento -> {
-	 	            		 record.setListasMedicamentos(medicamento);
-	 	            		 return ResponseEntity.ok().build();
+	            		  if(medicamento.getListasPratileiras().size() == 0) {
+	            			  return new ResponseEntity<>("Adicione esse remédio em uma pratileira", HttpStatus.BAD_REQUEST);
+	            		  }else {
+	            			   medicamento.setQtd(1);
+		 	            	   record.setListasMedicamentos(medicamento);
+		 	            	   return ResponseEntity.ok().build();
+	            		  }
 	 	            	  });	 	            	  
 	            	  	  pacienteRepository.save(record);
 	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);

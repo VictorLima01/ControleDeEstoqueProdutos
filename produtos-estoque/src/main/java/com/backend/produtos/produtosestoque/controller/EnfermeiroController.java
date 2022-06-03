@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.produtos.produtosestoque.model.Enfermeiro;
+import com.backend.produtos.produtosestoque.model.Medicamento;
 import com.backend.produtos.produtosestoque.repository.EnfermeiroRepository;
 import com.backend.produtos.produtosestoque.repository.PratileiraRepository;
+import org.springframework.util.StringUtils;
 
 @RestController
 @RequestMapping("/api")
@@ -56,11 +58,18 @@ public class EnfermeiroController {
 		return enfermeiroRepository.findById(id_enfermeiro)
 	              .map(record -> {
 	            	  pratileiraRepository.findById(id_pratileira).map(pratileira -> {
-	 	            		 record.setPratileiraSobResponsabilidade(pratileira);
-	 	            		 return ResponseEntity.ok().build();
+	            		  if(record.getSetor() != null && pratileira.getSetor().equals(record.getSetor())) {
+	            			  record.setPratileiraSobResponsabilidade(pratileira);
+	            			  enfermeiroRepository.save(record);
+	            			  return new ResponseEntity<>(record, HttpStatus.OK);
+	            		  }else {
+	            			  System.out.println("Coloque esse enfermeiro em um setor");
+	            			  return new ResponseEntity<>("Coloque esse enfermeiro em um setor", HttpStatus.BAD_GATEWAY);
+	            		  }
+	 	            		
 	 	            	  });	 	            	  
-	            	  enfermeiroRepository.save(record);
-	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
+	            	  		
+	 	            	  return new ResponseEntity<>(record, HttpStatus.ALREADY_REPORTED);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 

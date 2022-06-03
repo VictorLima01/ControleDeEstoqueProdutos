@@ -67,17 +67,4 @@ public class MedicoController {
 	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
-	
-	/*@GetMapping(value="/medicos/alocar-medicamentos/id_medico={id_medico}&id_medicamento={id_medicamento}")
-	   public ResponseEntity alocarMedicamentosParaMedicos(@PathVariable("id_medico") Long id_medico, @PathVariable("id_medicamento") Long id_medicamento){
-		return medicoRepository.findById(id_medico)
-	              .map(record -> {
-	            	  medicamentoRepository.findById(id_medicamento).map(medicamento -> {
-	 	            		 record.setListasMedicamentos(medicamento);
-	 	            		 return ResponseEntity.ok().build();
-	 	            	  });	 	            	  
-	            	  	  medicoRepository.save(record);
-	 	            	  return new ResponseEntity<>(record, HttpStatus.OK);
-	              }).orElse(ResponseEntity.notFound().build());
-	   }*/
 }

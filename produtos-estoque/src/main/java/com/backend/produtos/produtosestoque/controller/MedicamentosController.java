@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.produtos.produtosestoque.model.Medicamento;
 import com.backend.produtos.produtosestoque.model.Paciente;
+import com.backend.produtos.produtosestoque.model.Pratileira;
 import com.backend.produtos.produtosestoque.repository.MedicamentoRepository;
 import com.backend.produtos.produtosestoque.repository.PratileiraRepository;
 
@@ -37,6 +38,7 @@ public class MedicamentosController {
 	@PostMapping("/medicamentos/cadastrar")
 	   public ResponseEntity createMedicamento(@Valid @RequestBody Medicamento medicamento) {
 		   List<Medicamento> medicamentos = medicamentoRepository.findAll();
+		   List<Pratileira> pratileiras = pratileiraRepository.findAll();
 		   if(medicamentos.size() == 0) {
 			   medicamentoRepository.save(medicamento);
 		   }else {
@@ -44,6 +46,9 @@ public class MedicamentosController {
 				    if(medicamentoType.getNome().equals(medicamento.getNome())) {
 				    	System.out.println("Nome duplicado, digite um nome válido!");
 				    	return new ResponseEntity<>("Nome duplicado, digite um nome válido!", HttpStatus.BAD_REQUEST);
+				    }else if(pratileiras.size() == 0){
+				    	System.out.println("Você precisa guardar esse remédio em uma pratileira, por favor cadastre uma!");
+				    	return new ResponseEntity<>("Você precisa guardar esse remédio em uma pratileira, por favor cadastre uma!", HttpStatus.BAD_REQUEST);
 				    }else {
 				    	medicamentoRepository.save(medicamento);
 				    }
