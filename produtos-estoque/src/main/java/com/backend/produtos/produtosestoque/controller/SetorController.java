@@ -65,4 +65,11 @@ public class SetorController {
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 
+	   @DeleteMapping(path= {"/setores/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		setorRepository.deleteCopyByTradeId(id);
+		setorRepository.deleteById(id);
+		return null;
+	   }
+
 }

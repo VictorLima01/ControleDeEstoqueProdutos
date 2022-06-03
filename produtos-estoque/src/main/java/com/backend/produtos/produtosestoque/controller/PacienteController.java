@@ -70,4 +70,24 @@ public class PacienteController {
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 
+	   @DeleteMapping(path= {"/pacientes/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		pacienteRepository.deleteCopyByTradeId(id);
+		pacienteRepository.deleteById(id);
+		return null;
+	   }
+	
+	@PutMapping(value="/pacientes/{id}")
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Paciente pacientes) {
+		   return pacienteRepository.findById(id)
+				   .map(record -> {
+					   record.setNome(paciente.getNome());
+					   record.setIdade(paciente.getIdade());
+					   record.setEmail(paciente.getEmail());
+					   record.setConvenio(paciente.getConvenio());
+						 pacienteRepository.save(record);
+						 return new ResponseEntity<>(pacientes, HttpStatus.OK);
+					   }).orElse(ResponseEntity.notFound().build());	   	
+	   }
+
 }

@@ -47,4 +47,20 @@ public class PratileiraController {
 		   return new ResponseEntity<>(pratileira, HttpStatus.CREATED);
 	   }
 	
+	@DeleteMapping(path= {"/prateleiras/{id}"})
+	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
+		prateleiraRepository.deleteCopyByTradeId(id);
+		prateleiraRepository.deleteById(id);
+		return null;
+	   }
+	
+	@PutMapping(value="/prateleiras/{id}")
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Prateleira prateleiras) {
+		   return prateleiraRepository.findById(id)
+				   .map(record -> {
+					   record.setNome_pratileira(produtos.getNome_pratileira);
+						 produtoRepository.save(record);
+						 return new ResponseEntity<>(produtos, HttpStatus.OK);
+					   }).orElse(ResponseEntity.notFound().build());	   	
+	   }
 }
