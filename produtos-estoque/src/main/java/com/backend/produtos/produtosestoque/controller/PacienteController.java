@@ -63,7 +63,7 @@ public class PacienteController {
 	            		  if(medicamento.getListasPratileiras().size() == 0) {
 	            			  return new ResponseEntity<>("Adicione esse remédio em uma pratileira", HttpStatus.BAD_REQUEST);
 	            		  }else {
-	            			   medicamento.setQtd(1);
+	            			   medicamento.aleterarQtd(1);
 		 	            	   record.setListasMedicamentos(medicamento);
 		 	            	   return ResponseEntity.ok().build();
 	            		  }

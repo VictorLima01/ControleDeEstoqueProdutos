@@ -11,7 +11,7 @@ import com.backend.produtos.produtosestoque.model.Enfermeiro;
 public interface EnfermeiroRepository extends JpaRepository<Enfermeiro, Long>{
     @Modifying
 	    @Transactional
-	    @Query(value = "DELETE FROM enfermeiro_pratileira_sob_responsabilidade where id_enfermeiro = ?1; ", nativeQuery = true)
+	    @Query(value = "DELETE FROM enfermeiro_pratileira_sob_responsabilidade where enfermeiro_id_enfermeiro = ?1 ; ", nativeQuery = true)
 	    void deleteCopyByTradeId(Long id);
 	  
 
