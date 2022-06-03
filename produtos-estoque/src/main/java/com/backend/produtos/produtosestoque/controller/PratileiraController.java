@@ -1,5 +1,6 @@
 package com.backend.produtos.produtosestoque.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,8 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,18 +53,17 @@ public class PratileiraController {
 	
 	@DeleteMapping(path= {"/prateleiras/{id}"})
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
-		prateleiraRepository.deleteCopyByTradeId(id);
-		prateleiraRepository.deleteById(id);
+		pratileiraRepository.deleteById(id);
 		return null;
 	   }
 	
 	@PutMapping(value="/prateleiras/{id}")
-	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Prateleira prateleiras) {
-		   return prateleiraRepository.findById(id)
+	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Pratileira pratileiras) {
+		   return pratileiraRepository.findById(id)
 				   .map(record -> {
-					   record.setNome_pratileira(produtos.getNome_pratileira);
-						 produtoRepository.save(record);
-						 return new ResponseEntity<>(produtos, HttpStatus.OK);
+					   record.setNome_pratileira(pratileiras.getNome_pratileira());
+					   pratileiraRepository.save(record);
+						 return new ResponseEntity<>(pratileiras, HttpStatus.OK);
 					   }).orElse(ResponseEntity.notFound().build());	   	
 	   }
 }

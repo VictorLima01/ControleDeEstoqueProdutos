@@ -1,5 +1,6 @@
 package com.backend.produtos.produtosestoque.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,9 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,11 +82,11 @@ public class MedicoController {
 	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Medico medicos) {
 		   return medicoRepository.findById(id)
 				   .map(record -> {
-					   record.setNome(medico.getNome());
-					   record.setEmail(medico.getEmail());
-					   record.setTelefone(medico.getTelefone());
-					   record.setEndereco(medico.getEndereco());
-					   record.setEspecialidade(medico.getEspecialidade());
+					   record.setNome(medicos.getNome());
+					   record.setEmail(medicos.getEmail());
+					   record.setTelefone(medicos.getTelefone());
+					   record.setEndereco(medicos.getEndereco());
+					   record.setEspecialidade(medicos.getEspecialidade());
 						 medicoRepository.save(record);
 						 return new ResponseEntity<>(medicos, HttpStatus.OK);
 					   }).orElse(ResponseEntity.notFound().build());	   	

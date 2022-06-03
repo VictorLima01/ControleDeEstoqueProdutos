@@ -1,5 +1,6 @@
 package com.backend.produtos.produtosestoque.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,9 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,10 +84,10 @@ public class PacienteController {
 	   public ResponseEntity update(@PathVariable("id") long id, @RequestBody Paciente pacientes) {
 		   return pacienteRepository.findById(id)
 				   .map(record -> {
-					   record.setNome(paciente.getNome());
-					   record.setIdade(paciente.getIdade());
-					   record.setEmail(paciente.getEmail());
-					   record.setConvenio(paciente.getConvenio());
+					   record.setNome(pacientes.getNome());
+					   record.setIdade(pacientes.getIdade());
+					   record.setEmail(pacientes.getEmail());
+					   record.setConvenio(pacientes.getConvenio());
 						 pacienteRepository.save(record);
 						 return new ResponseEntity<>(pacientes, HttpStatus.OK);
 					   }).orElse(ResponseEntity.notFound().build());	   	

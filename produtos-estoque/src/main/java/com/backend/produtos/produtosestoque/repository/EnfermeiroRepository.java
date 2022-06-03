@@ -14,9 +14,5 @@ public interface EnfermeiroRepository extends JpaRepository<Enfermeiro, Long>{
 	    @Query(value = "DELETE FROM enfermeiro_pratileira_sob_responsabilidade where id_enfermeiro = ?1; ", nativeQuery = true)
 	    void deleteCopyByTradeId(Long id);
 	  
-	  	@Modifying
-	    @Transactional
-	    @Query(value = "DELETE FROM enfermeiro_pratileira_sob_responsabilidade where id_enfermeiro = ?1; ", nativeQuery = true)
-	    void deleteById(Long id);
 
 }
