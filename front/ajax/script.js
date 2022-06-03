@@ -1,57 +1,42 @@
-var btn = document.getElementById("btn");
-
-btn.addEventListener("click", function () {
-
-
-    $.ajax({
-        method: "GET",
-        url: "lista.php"
-        // data: { name: "John", location: "Boston" }
-    })
-        .done(function (msg) {
-            alert("Data Saved: " + msg);
-        });
-
-
-    $.get("lista.php", { name: "John", time: "2pm" })
-        .done(function (data) {
-            alert("Data Loaded: " + data);
-        });
-
-
-
-
-    //EXEMPLO UTILIZANDO JAVASCRIPT PURO
-
-
-    var ajax = new XMLHttpRequest();
-
-    ajax.open("GET", "lista.php"); //POST
-
-    ajax.responseType = "json";
-
-    ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-
-    ajax.send(); //"nome=guilherme&idade=32" (Exemplo com POST)
-
-    ajax.addEventListener("readystatechange", function () {
-
-
-        if (ajax.readyState === 4 && ajax.status === 200) {
-
-            console.log(ajax);
-
-            console.log(ajax.response);
-
-            var resposta = ajax.response;
-            var lista = document.querySelector(".list");
-
-            for (var i = 0; i < resposta.length; i++) {
-
-
-                lista.innerHTML += "<li>" + resposta[i] + "</li>";
+$(document).ready(function(){
+    $("button").click(function(){
+        $.ajax({
+            type: "GET",
+            url: "https://swapi.dev/api/people/1",
+            dataType:"json",
+            success: function(result){
+        
+                $("#div1").html(result.birth_year);
             }
-        }
-
+          });
     });
+  });
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: data,
+    dataType: "json",
+    success: function(data) {
+      alert('Load was performed.');
+    }
+  });
+
+  $.ajax({
+    url: '/echo/html/',
+    type: 'PUT',
+    data: "name=John&location=Boston",
+    dataType: "json",
+    success: function(data) {
+      alert('Load was performed.');
+    }
+  });
+
+  $.ajax({
+    url: '/script.cgi',
+    type: 'DELETE',
+    success: function(result) {
+        // Do something with the result
+    }
 });
+  
