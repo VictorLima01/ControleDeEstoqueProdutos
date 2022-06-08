@@ -73,8 +73,7 @@ public class MedicoController {
 
 	   @DeleteMapping(path= {"/medicos/{id}"})
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
-			medicoRepository.deleteCopyByTradeId(id);
-		
+		medicoRepository.deleteCopyByTradeId(id);
 		medicoRepository.deleteById(id);
 		return null;
 	   }
