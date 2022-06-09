@@ -10,31 +10,38 @@ function sendCadastro() {
     if(Senha != confirmSenha){
         document.getElementById("senhaConfirm").style.borderColor = "red";
     }else{
-        document.getElementById("senhaConfirm").style.borderColor = "grey";
-    }
-
-    let data = {
-        nome: name,
-        email: Email,
-        telefone: phone,
-        password: Senha
-    }
-
-    $.ajax({
-        type: "POST",
-        url: url,
-        crossDomain: true,
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-        },
-        data: JSON.stringify(data),
-        dataType: 'json',
-        success: function(data) {
-          console.log(data)
-        },
-        error: function () {
-            console.log("error");
+        let data = {
+            nome: name,
+            email: Email,
+            telefone: phone,
+            password: Senha
         }
-      });
+    
+        $.ajax({
+            type: "POST",
+            url: url,
+            crossDomain: true,
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+            },
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function(data) {
+              console.log(data);
+              document.getElementById("name").value = "";
+              document.getElementById("email").value = "";
+              document.getElementById("telefone").value = "";
+              document.getElementById("senha").value = "";
+              document.getElementById("senhaConfirm").value = "";
+
+              location.href = '../login/index.html';
+            },
+            error: function () {
+                console.log("error");
+            }
+          });
+    }
+
+    
   }
