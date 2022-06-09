@@ -125,8 +125,6 @@
             
             <li><a href="#"><i class="fa-solid fa-stethoscope"></i> Cadastrar Produto</a></li>
             
-            <li><a href="#"><i class="fa-solid fa-hospital-user"></i> Produtos dos pacientes</a></li>
-            
             <li><a href="../cadastro_pacientes/index.html"><i class="fa-solid fa-hospital-user"></i> Cadastrar pacientes</a></li>
         </ul>
     </nav>
@@ -166,7 +164,32 @@
         padding: 0;"></div>
 
     <script>
-       
+        let slideIndex = 1;
+   showSlides(slideIndex);
+   
+   function plusSlides(n) {
+     showSlides(slideIndex += n);
+   }
+   
+   function currentSlide(n) {
+     showSlides(slideIndex = n);
+   }
+   
+   function showSlides(n) {
+     let i;
+     let slides = document.getElementsByClassName("mySlides");
+     let dots = document.getElementsByClassName("dot");
+     if (n > slides.length) {slideIndex = 1}    
+     if (n < 1) {slideIndex = slides.length}
+     for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+     }
+     for (i = 0; i < dots.length; i++) {
+       dots[i].className = dots[i].className.replace(" active", "");
+     }
+     slides[slideIndex-1].style.display = "block";  
+     dots[slideIndex-1].className += " active";
+   }
         </script>
         <script src="Home.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

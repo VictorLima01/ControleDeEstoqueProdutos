@@ -1,33 +1,9 @@
 function buildPacientes(){
+
   /*
    Carrosel
   */
-   let slideIndex = 1;
-   showSlides(slideIndex);
-   
-   function plusSlides(n) {
-     showSlides(slideIndex += n);
-   }
-   
-   function currentSlide(n) {
-     showSlides(slideIndex = n);
-   }
-   
-   function showSlides(n) {
-     let i;
-     let slides = document.getElementsByClassName("mySlides");
-     let dots = document.getElementsByClassName("dot");
-     if (n > slides.length) {slideIndex = 1}    
-     if (n < 1) {slideIndex = slides.length}
-     for (i = 0; i < slides.length; i++) {
-       slides[i].style.display = "none";  
-     }
-     for (i = 0; i < dots.length; i++) {
-       dots[i].className = dots[i].className.replace(" active", "");
-     }
-     slides[slideIndex-1].style.display = "block";  
-     dots[slideIndex-1].className += " active";
-   }
+  
    /** */
   let url = `http://localhost:8080/api/pessoas`;
     let meusPacientes = "";
@@ -46,30 +22,83 @@ function buildPacientes(){
           console.log(result);
           for (var key in result) {
               var obj = result[key];
-
-              meusPacientes += `
-              <div class="gallery">
-              <div class="content">
-                  <img src="assets/paciente.png">
-                  <h3>${obj.nome}</h3>
-                  <p>${obj.email}</p>
-                  <h6>${obj.listasProdutos}</h6>
-                  <ul>
-                      <li><i class=""></i></li>
-                      <li><i class=""></i></li>
-                      <li><i class=""></i></li>
-                      <li><i class=""></i></li>
-                      <li><i class=""></i></li>
-                  </ul>
-                  <button class="buy-1">Alocar Produto</button>
+              if(obj.listasProdutos.length > 0){
+                for(var keyProduto in obj.listasProdutos){
+                  var objProduto = obj.listasProdutos[keyProduto];
+                  let arr = []
+                  arr.push(objProduto.nome)
+    
+                  meusPacientes += `
+                  <div class="gallery">
+                  <div class="content">
+                  <i style="width: 100%;
+                  padding: 5px;
+                  color: red;" class="fa-solid fa-rectangle-xmark" onclick="deletarPaciente(${obj.id})"></i>
+                      <img src="assets/paciente.png">
+                      <h3>${obj.nome}</h3>
+                      <p>Email: ${obj.email}</p>
+                      <p>Id: ${obj.id}</p>
+                      <h6>Produtos alocados: ${arr}</h6>
+                      <ul>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                      </ul>
+                      <button class="buy-1">Paciente está usando um produto</button>
+                  </div>
               </div>
-          </div>
-              `
+                  `
+                  
+              }
+              }else{
               
-              console.log(obj);
+                  meusPacientes += `
+                  <div class="gallery">
+                  <div class="content">
+                  <i style="width: 100%;
+                  padding: 5px;
+                  color: red;" class="fa-solid fa-rectangle-xmark" onclick="deletarPaciente(${obj.id})"></i>
+                      <img src="assets/paciente.png">
+                      <h3>${obj.nome}</h3>
+                      <p>Email: ${obj.email}</p>
+                      <p>Id: ${obj.id}</p>
+                    
+                      <ul>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                          <li><i class=""></i></li>
+                      </ul>
+                      <button class="buy-1">Paciente não utiliza nenhum produto</button>
+                  </div>
+              </div>
+                  `
+                  
               
-          }
+              }
+              
           document.getElementById("pacientes").innerHTML = meusPacientes
+        }
       }
   });
+}
+
+function deletarPaciente(idPaciente){
+  console.log("Chaamou")
+  $.ajax({
+    type: "DELETE",
+    url: `http://localhost:8080/api/pessoas/${idPaciente}`,
+    crossDomain: true,
+    headers: { 
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+    },
+    dataType:"json",
+    success: function(result){
+        console.log("Usuário: " + idPaciente + " deletado");
+    }
+});
 }
