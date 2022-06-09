@@ -32,6 +32,8 @@ public class EnfermeiroController {
 	
 	@Autowired
     private PratileiraRepository pratileiraRepository;
+
+	private String mensagem_retorno_api;
 	
 	@GetMapping("/enfermeiros")
     public List<Enfermeiro> list() {
@@ -64,15 +66,20 @@ public class EnfermeiroController {
 	            		  if(record.getSetor() != null && pratileira.getSetor().equals(record.getSetor())) {
 	            			  record.setPratileiraSobResponsabilidade(pratileira);
 	            			  enfermeiroRepository.save(record);
+	            			  mensagem_retorno_api = "Cadastro de pratileira para um enfermeiro feito com sucesso!: " +
+	            			  "/n {" +
+	            			  "" +
+	            			  "/n }";
 	            			  return new ResponseEntity<>(record, HttpStatus.OK);
 	            		  }else {
+	            			  mensagem_retorno_api = "Coloque esse enfermeiro em um setor! é necessário atribuir esse enfermeiro á um setor na api: /setor/alocar-setor/id_setor={id_setor}&id_enfermeiro={id_enfermeiro}";
 	            			  System.out.println("Coloque esse enfermeiro em um setor");
 	            			  return new ResponseEntity<>("Coloque esse enfermeiro em um setor", HttpStatus.BAD_GATEWAY);
 	            		  }
 	 	            		
 	 	            	  });	 	            	  
 	            	  		
-	 	            	  return new ResponseEntity<>(record, HttpStatus.ALREADY_REPORTED);
+	 	            	  return new ResponseEntity<>(mensagem_retorno_api, HttpStatus.ALREADY_REPORTED);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 

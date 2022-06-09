@@ -57,15 +57,20 @@ public class Medicamento {
 	}
 
 	public void setQtd(int qtd) {
-		this.qtd = this.qtd - qtd;
+		this.qtd = qtd;
 	}
-
+	
 	public String getEfeitos() {
 		return efeitos;
 	}
 
 	public void setEfeitos(String efeitos) {
 		this.efeitos = efeitos;
+	}
+
+	public void aleterarQtd(int qtd2) {
+		this.qtd = this.qtd - qtd;
+		
 	}
 	
 	
