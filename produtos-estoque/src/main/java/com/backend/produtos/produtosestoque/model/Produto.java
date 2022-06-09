@@ -16,9 +16,18 @@ public class Produto {
 	
 	private Long numeroLote;
 	private String nome;
+	private String funcao;
 	
 	private boolean alocado;
 	
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+
 	public Produto() {
 		super();
 	}

@@ -67,6 +67,7 @@ public class ProdutoController {
 				   .map(record -> {
 					   record.setNumeroLote(produtos.getNumeroLote());
 					   record.setNome(produtos.getNome());
+					   record.setFuncao(produtos.getFuncao());
 						 produtoRepository.save(record);
 						 return new ResponseEntity<>(produtos, HttpStatus.OK);
 					   }).orElse(ResponseEntity.notFound().build());	   	
