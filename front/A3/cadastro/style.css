@@ -28,7 +28,8 @@ main {
 main h1 {
     color: #8880FE;
     font-size: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    align-content: center;
 }
 
 main.social-media {
