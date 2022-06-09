@@ -136,6 +136,12 @@ function deletarProduto(idProduto){
       success: function(result){
           console.log("Usuário: " + idProduto + " deletado");
           document.location.reload(true);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>'
+          })
       }
   });
   }
