@@ -40,7 +40,7 @@ public class PessoaController {
 	
 	@PostMapping("/pessoas/cadastrar")
 	   public ResponseEntity createPessoa(@Valid @RequestBody Pessoa pessoa) {
-		   List<Pessoa> pessoas = pessoaRepository.findAll();
+		   List<Pessoa> pessoas = pessoaRepository.findAll(); 
 		   if(pessoas.size() == 0) {
 			   pessoaRepository.save(pessoa);
 		   }else {

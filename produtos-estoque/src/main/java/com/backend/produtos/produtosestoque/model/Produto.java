@@ -16,6 +16,7 @@ public class Produto {
 	
 	private Long numeroLote;
 	private String nome;
+	
 	private boolean alocado;
 	
 	public Produto() {
