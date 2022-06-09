@@ -22,11 +22,12 @@ function buildPacientes(){
           console.log(result);
           for (var key in result) {
               var obj = result[key];
+              let arr = []
               if(obj.listasProdutos.length > 0){
                 for(var keyProduto in obj.listasProdutos){
                   var objProduto = obj.listasProdutos[keyProduto];
-                  let arr = []
                   arr.push(objProduto.nome)
+                }
     
                   meusPacientes += `
                   <div class="gallery">
@@ -51,7 +52,7 @@ function buildPacientes(){
               </div>
                   `
                   
-              }
+              
               }else{
               
                   meusPacientes += `

@@ -1,6 +1,7 @@
 function sendCadastroProdutos(){
     let numeroLote = document.getElementById("numeroLote").value;
     let nome = document.getElementById("nome").value;
+    let funcao = document.getElementById("funcao").value;
 
     let url = "http://localhost:8080/api/produtos/cadastrar";
 
@@ -8,7 +9,8 @@ function sendCadastroProdutos(){
         let data = {
             nome: nome,
             numeroLote: parseInt(numeroLote),
-            alocado: false
+            alocado: false,
+            funcao: funcao
         }
     
         $.ajax({
@@ -25,8 +27,13 @@ function sendCadastroProdutos(){
               console.log(data);
               document.getElementById("numeroLote").value = "";
               document.getElementById("nome").value = "";
+              document.getElementById("funcao").value = "";
 
-              document.location.reload(true);
+              Swal.fire(
+                `Sucesso!`,
+                `Você criou um produto!`,
+                'success'
+              )
             },
             error: function () {
                 console.log("error");

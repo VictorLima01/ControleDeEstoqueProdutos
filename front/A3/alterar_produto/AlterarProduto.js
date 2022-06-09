@@ -1,3 +1,23 @@
+$('#idProduto').on('change', function() {
+    var value = $(this).val();
+    if(value != ""){
+        $('#numeroLote').attr('disabled', false);
+        $('#nome').attr('disabled', false);
+        $('#funcao').attr('disabled', false);
+
+        document.getElementById("numeroLote").style.backgroundColor = "white"
+        document.getElementById("nome").style.backgroundColor = "white"
+        document.getElementById("funcao").style.backgroundColor = "white"
+    }else{
+        $('#numeroLote').attr('disabled', true);
+        $('#nome').attr('disabled', true);
+        $('#funcao').attr('disabled', true);
+
+        document.getElementById("numeroLote").style.backgroundColor = "lightgrey"
+        document.getElementById("nome").style.backgroundColor = "lightgrey"
+        document.getElementById("funcao").style.backgroundColor = "lightgrey"
+    }
+});
 function verificarCampos(){
     /*
         bUILD SELECT
@@ -31,6 +51,7 @@ function verificarCampos(){
 function updateProduto(){
     let numeroLote = document.getElementById("numeroLote").value;
     let nome = document.getElementById("nome").value;
+    let funcao = document.getElementById("funcao").value;
 
     var e = document.getElementById("idProduto");
     let idProduto =  e.value;
@@ -40,6 +61,7 @@ function updateProduto(){
     let data = {
         nome: nome,
         numeroLote: parseInt(numeroLote),
+        funcao: funcao
     }
 
     $.ajax({
@@ -57,7 +79,11 @@ function updateProduto(){
           document.getElementById("numeroLote").value = "";
           document.getElementById("nome").value = "";
 
-          document.location.reload(true);
+          Swal.fire(
+            `Sucesso!`,
+            `Você criou um paciente!`,
+            'success'
+          )
         },
         error: function () {
             console.log("error");

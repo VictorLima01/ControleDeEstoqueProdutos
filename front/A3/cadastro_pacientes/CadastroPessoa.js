@@ -28,14 +28,17 @@ function sendCadastro() {
             data: JSON.stringify(data),
             dataType: 'json',
             success: function(data) {
-              console.log(data);
               document.getElementById("name").value = "";
               document.getElementById("email").value = "";
               document.getElementById("telefone").value = "";
               document.getElementById("senha").value = "";
               document.getElementById("senhaConfirm").value = "";
 
-              document.location.reload(true);
+              Swal.fire(
+                `Sucesso!`,
+                `Você criou um paciente!`,
+                'success'
+              )
             },
             error: function () {
                 console.log("error");

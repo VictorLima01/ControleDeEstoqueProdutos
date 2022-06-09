@@ -60,6 +60,7 @@ function buildProducts(){
                     <img src="assets/produto-sem-imagem.png">
                     <h3>${obj.nome}</h3>
                     <p>Número Lote: ${obj.numeroLote}</p>
+                    <p>Função: ${obj.funcao}</p>
                     <h6>${textAlocado}</h6>
                     <ul>
                         <li><i class=""></i></li>
@@ -68,7 +69,7 @@ function buildProducts(){
                         <li><i class=""></i></li>
                         <li><i class=""></i></li>
                     </ul>
-                    <button style="background-color: grey;" class="buy-1" disabled>Alocar Produto</button>
+                    <button style="background-color: grey;" class="buy-1" disabled>Produto não disponível</button>
                 </div>
             </div>
                 `
@@ -83,6 +84,7 @@ function buildProducts(){
                     <img src="assets/produto-sem-imagem.png">
                     <h3>${obj.nome}</h3>
                     <p>Número Lote: ${obj.numeroLote}</p>
+                    <p>Função: ${obj.funcao}</p>
                     <h6>${textAlocado}</h6>
                     <button class="buy-1" onclick="alocarProduto(${obj.id})">Alocar Produto</button>
                 </div>
@@ -104,6 +106,11 @@ function alocarProduto(idProduto){
     console.log("Id Paciente: ", idPaciente)
 
     if(idPaciente != ""){
+        Swal.fire(
+            `Sucesso!`,
+            `Você alocou o produto do id ${idProduto} ao paciente do id ${idPaciente}!`,
+            'success'
+          )
         $.ajax({
             type: "GET",
             url: url,
@@ -119,11 +126,22 @@ function alocarProduto(idProduto){
                 console.log("erro")
             }
         });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Você não selecionou um paciente',
+            footer: '<a href="">Why do I have this issue?</a>'
+          })
     }
 }
 
 function deletarProduto(idProduto){
-    console.log("Chaamou")
+    Swal.fire(
+        `Sucesso!`,
+        `Você deletou o produto do id ${idProduto}!`,
+        'success'
+      )
     $.ajax({
       type: "DELETE",
       url: `http://localhost:8080/api/produtos/${idProduto}`,
@@ -134,14 +152,12 @@ function deletarProduto(idProduto){
       },
       dataType:"json",
       success: function(result){
-          console.log("Usuário: " + idProduto + " deletado");
-          document.location.reload(true);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
-          })
+        console.log("sucesso")
+        location.reload();
+        return false;
       }
   });
+
+ 
+
   }
