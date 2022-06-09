@@ -23,7 +23,7 @@ function buildProducts(){
                     meusProdutos += `
                 <div class="gallery">
                 <div class="content">
-                    <img src="">
+                    <img src="assets/produto-sem-imagem.png">
                     <h3>${obj.nome}</h3>
                     <p>${obj.numeroLote}</p>
                     <h6>${textAlocado}</h6>
@@ -43,7 +43,7 @@ function buildProducts(){
                     meusProdutos += `
                 <div class="gallery">
                 <div class="content">
-                    <img src="">
+                    <img src="assets/produto-sem-imagem.png">
                     <h3>${obj.nome}</h3>
                     <p>${obj.numeroLote}</p>
                     <h6>${textAlocado}</h6>
@@ -68,5 +68,5 @@ function buildProducts(){
 }
 
 function alocarProduto(idProduto){
-    
+
 }

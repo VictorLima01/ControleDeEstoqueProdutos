@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
 * {
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 #menu-h{
@@ -28,12 +30,7 @@
 }
 
 #menu-h ul li a:hover {
-    background-color: rgb(24, 139, 233);
-}
-
-#menu-h ul li:last-child a {
-    float: right;
-    background-color: rgb(24, 139, 233);
+    background-color: #636FA4;
 }
 
 body{

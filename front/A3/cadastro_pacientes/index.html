@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro
+
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+        <nav id="menu-h" style="position: absolute;width: 100%;">
+            <ul>
+                <li><a style="
+                  pointer-events: none;
+                  color: #636FA4;
+                  font-size: 1.5rem;
+                  font-weight: bold;
+              " href="#"><i class="fa-solid fa-heart"></i> Gerenciador de Hospitais</a></li>
+    
+                <li>
+                  <a href="../home/index.html"><i class="fa-solid fa-house"></i> Home</a>
+                </li>
+    
+                <li>
+                  <a href="../produtos_disponiveis/index.html"><i class="fa-solid fa-house-medical-circle-check"></i> Produtos disponíveis</a>
+                </li>
+                
+                <li><a href="#"><i class="fa-solid fa-stethoscope"></i> Cadastrar Produto</a></li>
+                
+                <li><a href="#"><i class="fa-solid fa-hospital-user"></i> Produtos dos pacientes</a></li>
+                
+                <li><a href="index.html"><i class="fa-solid fa-hospital-user"></i> Cadastrar pacientes</a></li>
+            </ul>
+        </nav>
+        <form action="" style="
+        margin-top: 100px;
+    ">
+            <h1>Cadastre um Paciente</h1>
+            <p style="
+            align-self: center;
+        ">Cadastre um paciente que vai utilizar um produto do Hospital</p>
+            <label for="name">
+                <span>Nome</span>
+                <input type="text" id="name" name="name">
+            </label>
+
+            <label for="email">
+                <span>Email</span>
+                <input type="email" id="email" name="email">
+            </label>
+ 
+            <label for="telefone">
+                <span>Telefone</span>
+                <input type="phone" id="telefone" name="telefone">
+            </label>
+
+            <label for="senha">
+                <span>Senha</span>
+                <input type="password" id="senha" name="senha">
+            </label>
+
+            <label for="senha">
+                <span>Confirmar Senha</span>
+                <input type="password" id="senhaConfirm" name="senha">
+            </label>
+
+            <input type="button" onclick="sendCadastro()" value="Cadastrar">
+        </form>
+    </main>
+    <section class="images">
+        <img src="assets/doctor.png" alt="Mobile">
+        <div class="circle">
+
+        </div>
+    </section>
+    <script src="CadastroPessoa.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
