@@ -135,6 +135,7 @@ function deletarProduto(idProduto){
       dataType:"json",
       success: function(result){
           console.log("Usuário: " + idProduto + " deletado");
+          document.location.reload(true);
       }
   });
   }

@@ -99,6 +99,7 @@ function deletarPaciente(idPaciente){
     dataType:"json",
     success: function(result){
         console.log("Usuário: " + idPaciente + " deletado");
+        document.location.reload(true);
     }
 });
 }

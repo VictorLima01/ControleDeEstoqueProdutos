@@ -35,7 +35,7 @@ function sendCadastro() {
               document.getElementById("senha").value = "";
               document.getElementById("senhaConfirm").value = "";
 
-              location.href = '../home/index.html';
+              document.location.reload(true);
             },
             error: function () {
                 console.log("error");
