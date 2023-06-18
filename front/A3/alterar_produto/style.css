@@ -160,7 +160,7 @@ section.images .circle {
 }
 
 #menu-h ul li a {
-    color: #FFF;
+    color: #636FA4;
     padding: 20px;
     display: inline-block;
     text-decoration: none;
@@ -169,4 +169,5 @@ section.images .circle {
 
 #menu-h ul li a:hover {
     background-color: #636FA4;
+    color: #FFF;
 }

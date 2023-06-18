@@ -6,6 +6,7 @@
     font-family: "Poppins", sans-serif;
 }
 
+
 #menu-h{
     background-color: #E9D5CA;
 }
@@ -21,7 +22,7 @@
 }
 
 #menu-h ul li a {
-    color: #FFF;
+    color: #636FA4;
     padding: 20px;
     display: inline-block;
     text-decoration: none;
@@ -30,6 +31,7 @@
 
 #menu-h ul li a:hover {
     background-color: #636FA4;
+    color: #FFF;
 }
  /*
     Lista de pacientes

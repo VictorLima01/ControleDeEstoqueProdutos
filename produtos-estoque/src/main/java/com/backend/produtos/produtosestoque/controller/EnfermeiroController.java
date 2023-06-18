@@ -79,7 +79,7 @@ public class EnfermeiroController {
 	 	            		
 	 	            	  });	 	            	  
 	            	  		
-	 	            	  return new ResponseEntity<>(mensagem_retorno_api, HttpStatus.ALREADY_REPORTED);
+	 	            	  return new ResponseEntity<>(record, HttpStatus.CREATED);
 	              }).orElse(ResponseEntity.notFound().build());
 	   }
 
@@ -87,7 +87,7 @@ public class EnfermeiroController {
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
 		enfermeiroRepository.deleteCopyByTradeId(id);
 		enfermeiroRepository.deleteById(id);
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 	
 	@PutMapping(value="/enfermeiro/{id}")
