@@ -1,5 +1,6 @@
 package com.backend.produtos.produtosestoque.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Medico {
 	private String especialidade;
 	
 	@OneToMany(targetEntity=Paciente.class, fetch=FetchType.EAGER)
-    private List<Paciente> listasPacientes;
+    private List<Paciente> listasPacientes = new ArrayList<Paciente>();
 	
 	public Medico() {  
 		super();

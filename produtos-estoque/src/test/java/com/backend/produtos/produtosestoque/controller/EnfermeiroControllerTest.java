@@ -130,7 +130,7 @@ class EnfermeiroControllerTest {
         verify(enfermeiroRepository, times(1)).deleteById(mockEnfermeiro.getId_enfermeiro());
 	}
 	
-	@DisplayName("Teste método para deletar enfermeiros. ")
+	@DisplayName("Teste método para editar enfermeiros. ")
 	@Test
 	void testUpdateEnfermeiro() throws SQLException, ClassNotFoundException{
 		EasyRandom generator = new EasyRandom();

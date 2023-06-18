@@ -61,11 +61,8 @@ public class PessoaController {
 	
 	 @DeleteMapping(path= {"/pessoas/{id}"})
 	   public ResponseEntity delete(@PathVariable long id) {
-		   return pessoaRepository.findById(id)
-				   .map(record -> {
-					   pessoaRepository.deleteById(id);
-					  return ResponseEntity.ok().build();
-				   }).orElse(ResponseEntity.notFound().build());
+		 	pessoaRepository.deleteById(id);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 	   
 	@GetMapping(value="/pessoas/login/email={email}&password={password}")
@@ -80,7 +77,7 @@ public class PessoaController {
 	   }
 	
 	@GetMapping(value="/pessoas/alocar-produtos/idProduto={idProduto}&idPessoa={idPessoa}")
-	   public ResponseEntity login(@PathVariable("idProduto") Long idProduto, @PathVariable("idPessoa") Long idPessoa){
+	   public ResponseEntity alocaProduto(@PathVariable("idProduto") Long idProduto, @PathVariable("idPessoa") Long idPessoa){
 		return pessoaRepository.findById(idPessoa)
 	              .map(record -> {
 	            		  produtoRepository.findById(idProduto).map(produto -> {

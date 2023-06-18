@@ -58,7 +58,7 @@ public class ProdutoController {
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
 		produtoRepository.deleteCopyByTradeId(id);
 		produtoRepository.deleteById(id);
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 	
 	@PutMapping(value="/produtos/{id}")

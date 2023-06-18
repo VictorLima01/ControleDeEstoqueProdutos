@@ -1,5 +1,6 @@
 package com.backend.produtos.produtosestoque.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class Pessoa {
 	private String password;
 	
 	@OneToMany(targetEntity=Produto.class, fetch=FetchType.EAGER)
-    private List<Produto> listasProdutos;
+    private List<Produto> listasProdutos = new ArrayList<Produto>();
 	
 	public Pessoa() {
 		super();

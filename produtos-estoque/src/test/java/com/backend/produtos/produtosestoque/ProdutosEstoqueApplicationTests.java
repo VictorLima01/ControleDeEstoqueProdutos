@@ -17,13 +17,7 @@ class ProdutosEstoqueApplicationTests {
 	@Test
 	void testarMain() {
 		String[] args = {};
-		 try {
-			 produtosEstoqueApplication.main(args);
-	        } catch (Exception e) {
-	            System.out.println(e.getMessage());
-	            System.exit(1);
-	        }
-		
+		produtosEstoqueApplication.main(args);
 	}
 
 }

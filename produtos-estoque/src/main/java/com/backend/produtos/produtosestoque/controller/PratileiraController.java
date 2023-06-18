@@ -34,7 +34,7 @@ public class PratileiraController {
     }
 	
 	@PostMapping("/pratileira/cadastrar")
-	   public ResponseEntity createMedicamento(@Valid @RequestBody Pratileira pratileira) {
+	   public ResponseEntity createPratileira(@Valid @RequestBody Pratileira pratileira) {
 		   List<Pratileira> pratileiras = pratileiraRepository.findAll();
 		   if(pratileiras.size() == 0) {
 			   pratileiraRepository.save(pratileira);
@@ -54,7 +54,7 @@ public class PratileiraController {
 	@DeleteMapping(path= {"/prateleiras/{id}"})
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
 		pratileiraRepository.deleteById(id);
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 	
 	@PutMapping(value="/prateleiras/{id}")

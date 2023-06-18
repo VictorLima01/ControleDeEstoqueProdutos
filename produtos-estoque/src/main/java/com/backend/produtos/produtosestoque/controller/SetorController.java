@@ -71,7 +71,7 @@ public class SetorController {
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
 		setorRepository.deleteCopyByTradeId(id);
 		setorRepository.deleteById(id);
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 
 }

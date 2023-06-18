@@ -75,7 +75,7 @@ public class MedicoController {
 	   public ResponseEntity delete(@PathVariable long id) throws SQLException, ClassNotFoundException {
 		medicoRepository.deleteCopyByTradeId(id);
 		medicoRepository.deleteById(id);
-		return null;
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	   }
 	
 	@PutMapping(value="/medicos/{id}")
